@@ -7,10 +7,15 @@ const bookingSchema = mongoose.Schema(
     date: Date,
     startTime: String,
     endTime: String,
+    status: {
+      type: String,
+      enum: ["pending", "confirmed", "cancelled", "completed"],
+      default: "confirmed",
+    },
   },
   { timestamps: true },
 );
 
-const Booking = mongoose.model('Booking', bookingSchema);
+const Booking = mongoose.model("Booking", bookingSchema);
 
 module.exports = Booking;

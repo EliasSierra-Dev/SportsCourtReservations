@@ -17,6 +17,7 @@ async function createBooking(req, res) {
       court: court,
       date: date,
       startTime: startTime,
+      status: 'confirmed'
     });
 
     if (existBooking) {
@@ -44,9 +45,10 @@ async function createBooking(req, res) {
 
     await booking.save();
 
-    const slot = court.schedule.find((slot) => slot.startTime === startTime && slot.endTime === endTime,
+    const slot = court.schedule.find(
+      (slot) => slot.startTime === startTime && slot.endTime === endTime,
     );
-    slot.isBooked = true
+    slot.isBooked = true;
     await court.save();
 
     await booking.populate("user");
@@ -56,8 +58,10 @@ async function createBooking(req, res) {
       booking: {
         user: booking.user.firstName,
         court: booking.court.name,
+        date: booking.date,
         startTime: booking.startTime,
         endTime: booking.endTime,
+        status: booking.status,
       },
     });
   } catch (error) {

@@ -55,4 +55,17 @@ const roleField = Joi.string().valid('user', 'admin').required().messages({
     'any.only': 'El rol debe ser user o admin'
 });
 
-module.exports = { firstNameField, lastNameField, documentTypeField, documentNumberField, phoneField, emailField, passwordField, roleField };
+const startTimeField = Joi.string().required().messages({
+    'string.empty': 'La hora de inicio es requerido',
+    'any.required': 'La hora de inicio es requerido',
+    'any.only': 'El rol debe ser user o admin'
+});
+
+const endTimeField = Joi.string().required().messages({
+    'string.empty': 'La hora de fin es requerido',
+    'any.required': 'La hora de fin es requerido',
+    'any.only': 'El rol debe ser user o admin'
+});
+
+
+module.exports = { firstNameField, lastNameField, documentTypeField, documentNumberField, phoneField, emailField, passwordField, roleField, startTimeField, endTimeField };
