@@ -11,7 +11,7 @@ const ruta = express.Router();
 
 
 ruta.get('/dashboard', verifyToken, verifyRole('admin'), dashboard);
-ruta.get("/dashboard/report", verifyToken, verifyRole("admin"), generateReport);
+ruta.post("/dashboard/report", verifyToken, verifyRole("admin"), generateReport);
 
 
 
