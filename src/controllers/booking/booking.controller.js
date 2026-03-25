@@ -8,16 +8,21 @@ async function createBooking(req, res) {
 
   try {
     let court = await Court.findById(id);
+    
 
     if (!court) {
       return res.status(404).json({ msg: "the court does not exist" });
+    }
+    
+if (!court.isActive) {
+      return res.status(400).json({ msg: "the court is not available" });
     }
 
     let existBooking = await Booking.findOne({
       court: court,
       date: date,
       startTime: startTime,
-      status: 'confirmed'
+      status: "confirmed",
     });
 
     if (existBooking) {

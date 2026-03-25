@@ -2,7 +2,7 @@
 const Court = require("../../models/courtSchema");
 
 async function registerCourt(req, res) {
-  const { name, sport, location, pricePerHour, available, schedule, description } =
+  const { name, sport, location, pricePerHour, available, isActive, schedule, description } =
     req.body;
 
   try {
@@ -17,6 +17,7 @@ async function registerCourt(req, res) {
       location,
       pricePerHour,
       available,
+      isActive,
       schedule,
       description,
     });
@@ -30,6 +31,7 @@ async function registerCourt(req, res) {
         location: newCourt.location,
         pricePerHour: newCourt.pricePerHour,
         available: newCourt.available,
+        isActive: newCourt.isActive,
         schedule: newCourt.schedule,
         description: newCourt.description,
       },

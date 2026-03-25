@@ -14,6 +14,7 @@ app.use('/api', require('./routes/register.routes'))
 app.use('/api', require('./routes/user.routes'));
 app.use('/api', require('./routes/court.routes'));
 app.use('/api', require('./routes/booking.routes'));
+app.use('/api', require('./routes/dashboard.routes'))
 
 app.use(errorHandler);
 

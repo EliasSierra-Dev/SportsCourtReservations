@@ -1,4 +1,3 @@
-
 const userModel = require("../../models/user.models");
 const bcrypt = require("bcrypt");
 
@@ -46,7 +45,5 @@ async function registerUser(req, res) {
     res.status(500).json({ msg: error.message });
   }
 }
-
-
 
 module.exports = registerUser;

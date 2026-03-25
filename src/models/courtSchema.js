@@ -21,6 +21,7 @@ const courtSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    isActive: { type: Boolean, default: true },
     schedule: [           // ← agregar esto
     {
       date: Date,
