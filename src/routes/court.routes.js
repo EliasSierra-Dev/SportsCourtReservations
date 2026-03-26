@@ -8,8 +8,8 @@ const deleteCourte = require('../controllers/court/deleteCourt.controller');
 
 const ruta = express.Router();
 
-ruta.post('/courts/courtRegister',  verifyToken,  verifyRole('admin'),  registerCourt);
-ruta.get('/courts/listCourt', verifyToken,  getCourt);
+ruta.post('/courtRegister',  verifyToken,  verifyRole('admin'),  registerCourt);
+ruta.get('/listCourt', verifyToken,  getCourt);
 ruta.put('/updateCourt/:id',  verifyToken,  verifyRole('admin'),  updateCourt);
 ruta.patch('/deleteCourt/:id',  verifyToken,  verifyRole('admin',),  deleteCourte);
 

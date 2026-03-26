@@ -99,7 +99,7 @@ async function dashboard(req, res) {
       totalUsuarios,
     });
   } catch (error) {
-    console.log(error);
+   
     res.status(500).json({ msg: error.message });
   }
 }

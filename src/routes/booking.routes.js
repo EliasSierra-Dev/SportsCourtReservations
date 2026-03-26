@@ -9,7 +9,7 @@ const getBooking = require('../controllers/booking/getBookings.controller');
 
 const ruta = express.Router();
 
-ruta.post('/booking/:id', verifyToken, verifyRole('admin', 'user'),validate(vaidationsBooking), createBooking);
+ruta.post('/create/:id', verifyToken, verifyRole('admin', 'user'),validate(vaidationsBooking), createBooking);
 ruta.post('/cancelBooking/:id', verifyToken, verifyRole('admin', 'user'), cancelBooking);
 ruta.get('/booking', verifyToken, verifyRole('admin', 'user'), getBooking);
 
