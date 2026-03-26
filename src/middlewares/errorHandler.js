@@ -1,7 +1,11 @@
-// Manejador de errores.
 function errorHandler(err, req, res, next) {
-  const status = err.statusCode || 500;
-  res.status(status).json({ msg: err.message });
+  const statusCode = err.statusCode || 500;
+  const status = err.status || 'error';
+
+  res.status(statusCode).json({ 
+    status,
+    message: err.message 
+  });
 }
 
 module.exports = errorHandler;

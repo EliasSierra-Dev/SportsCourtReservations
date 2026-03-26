@@ -1,49 +1,23 @@
-const userModel = require("../../models/user.models");
-const bcrypt = require("bcrypt");
+const userModel = require('../../models/user.models');
+const registerUserService = require('../../services/registerUser.Service');
 
-async function registerUser(req, res) {
-  const {
-    firstName,
-    lastName,
-    documentType,
-    documentNumber,
-    phone,
-    email,
-    password,
-    role,
-  } = req.body;
 
+async function registerUser(req, res, next) {
   try {
-    let existingUser = await userModel.findOne({ email: email });
+    const user = await registerUserService(req.body)
 
-    if (existingUser) {
-      return res.status(409).json({ msg: "EL usuario ya existe" });
-    }
-
-    let user = new userModel({
-      firstName,
-      lastName,
-      documentType,
-      documentNumber,
-      phone,
-      email,
-      password: bcrypt.hashSync(password, 10),
-      role,
-    });
-
-    await user.save();
     res.status(201).json({
-      msg: "Usuario registrado con éxito",
+      status: 'success',
+      msg: 'Usuario registrado con éxito',
       user: {
         id: user._id,
         firstName: user.firstName,
         email: user.email,
         role: user.role,
       },
-    });
+    })
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    next(error)
   }
 }
-
 module.exports = registerUser;

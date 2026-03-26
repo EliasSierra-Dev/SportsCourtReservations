@@ -1,29 +1,16 @@
 
-const Court = require("../../models/courtSchema");
 
-async function registerCourt(req, res) {
-  const { name, sport, location, pricePerHour, available, isActive, schedule, description } =
-    req.body;
+const createCourtService = require("../../services/court.service");
 
-  try {
-    const court = await Court.findOne({name: name});
 
-    if (court) {
-      return res.status(400).json({ msg: "the court already exists" });
-    }
-    let newCourt = new Court({
-      name,
-      sport,
-      location,
-      pricePerHour,
-      available,
-      isActive,
-      schedule,
-      description,
-    });
+async function registerCourt(req, res, next) {
+ 
+try {
+  const newCourt = await createCourtService(req.body)
 
-    await newCourt.save();
+   
     res.status(201).json({
+      status: 'success',
       msg: "court successfully registered",
       court: {
         name: newCourt.name,
@@ -36,12 +23,11 @@ async function registerCourt(req, res) {
         description: newCourt.description,
       },
     });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({
-        msg: 'An error occurred while trying to register the court'
-    })
-  }
+} catch (error) {
+  next (error)
+  
+}
+    
 }
 
 module.exports = registerCourt;
