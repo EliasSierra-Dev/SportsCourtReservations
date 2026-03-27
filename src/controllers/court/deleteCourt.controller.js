@@ -1,29 +1,20 @@
 const court = require("../../models/courtSchema");
+const deleteCourtServices = require("../../services/deleteCourt.Service");
 
-async function deleteCourte(req, res) {
+async function deleteCourte(req, res, next) {
   const { id } = req.params;
 
   try {
-    let existCourt = await court.findById(id);
-    if (!existCourt) {
-      return res.status(404).json({ msg: "Not data found" });
-    }
-    const courtUpdate = await court.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          isActive: false,
-          available: false,
-          "schedule.$[].isBooked": true, // actualiza todos los slots del array
-        },
-      },
-      { returnDocument: "after" },
-    );
+    const court = await deleteCourtServices(id);
 
-    res.status(200).json({ courtUpdate });
+    res.status(200).json({
+      status: "success",
+      msg: "Court deleted successfully",
+      court,
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error.message });
+    next(error);
   }
 }
 
